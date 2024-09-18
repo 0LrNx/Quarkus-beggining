@@ -1,17 +1,87 @@
 ![Banner](images/banner.png)
 
-# todo-app
+# Todo-App
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Welcome to the Todo-App project! This application is a task management tool (To-Do List) built with Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-## Running the application in dev mode
+## Overview
 
-You can run your application in dev mode that enables live coding using:
+This application allows you to manage tasks using a simple web interface. It uses MongoDB for storing tasks and Quarkus to provide a fast and efficient Java development environment.
+
+## Features
+- **List Tasks:** View all tasks stored in the MongoDB database.
+- **Add Task:** Add a new task to the list.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+- **[Java 17 or later](https://www.oracle.com/java/technologies/downloads/#java11)**
+- **[Apache Maven](https://maven.apache.org/download.cgi)**
+- **[Docker](https://www.docker.com/)** and **[Docker Compose](https://docs.docker.com/compose/)**
+
+## Setting Up MongoDB
+
+1. Create a docker-compose.yml file in the root of your project (if it doesn't already exist) with the following content:
+
+```yaml
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
+```
+
+2. Start MongoDB using Docker Compose:
+```shell script
+docker-compose up -d
+```
+This command will start MongoDB in a detached mode and map port 27017 from the container to your local machine.
+
+3. Verify that MongoDB is running : 
+
+You can check the status of the container using:
+```shell script
+    docker-compose ps
+```
+
+Ensure that the `mongodb` container is up and running.
+
+## Installation
+
+
+1. Clone the repository:
+```shell script
+git clone https://github.com/your-username/todo-app.git
+```
+
+2. Navigate to the project directory:
+```shell script
+cd todo-app
+```
+
+3. Install the project dependencies:
+```shell script
+./mvnw clean install
+```
+
+## Running in Development Mode
+
+To start the application in development mode, which supports live coding, use:
+
 ```shell script
 ./mvnw compile quarkus:dev
 ```
+
+Once the application is running, you can access the user interface at http://localhost:8080.
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
@@ -33,26 +103,36 @@ If you want to build an _über-jar_, execute the following command:
 
 The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+## Creating an Uber-Jar
 
-You can create a native executable using: 
+To create an uber-jar that includes all dependencies, execute:
+
 ```shell script
-./mvnw package -Dnative
+./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+You can then run the uber-jar using:
+
 ```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+java -jar target/*-runner.jar
 ```
 
-You can then execute your native executable with: `./target/todo-app-1.0.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
+## Code Structure
 
-## Provided Code
+-  `Todo`: A model representing a task with attributes such as `id`, `title`, `description`, and `completed`.
+-  `̀TodoResource`: A REST resource exposing endpoints to get the list of tasks and add a new task.
+- `TodoService`: A service containing business logic for interacting with the MongoDB database.
 
-### REST
+## Dependencies 
 
-Easily start your REST Web Services
+- **Quarkus**: Java framework for fast and efficient applications.
+- **MongoDB**: NoSQL database used to store tasks.
+- **Qute**: Template engine for generating HTML views.
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+## Ressources
+
+- **[Quarkus Documentation](https://quarkus.io/guides/)**
+- **[MongoDB Documentation](https://docs.mongodb.com/)**
+- **[Qute Guide](https://quarkus.io/guides/qute-reference)**
+
