@@ -1,3 +1,5 @@
+![Banner](images/banner.png)
+
 # todo-app
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
