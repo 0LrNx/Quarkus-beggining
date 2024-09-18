@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Liste des tâches</title>
+    </head>
+    <body>
+        <h1>Liste des tâches</h1>
+        <ul>
+            {#for todo in todos}
+            <li>
+                <strong>{todo.title}</strong> - {todo.description}
+                <span>{todo.completed ? "✔️" : "❌"}</span>
+            </li>
+            {/for}
+        </ul>
+
+        <h2>Ajouter une tâche</h2>
+        <form id="addTodoForm">
+            <label for="title">Titre:</label>
+            <input id="title" name="title" required type="text"><br>
+            <label for="description">Description:</label>
+            <input id="description" name="description" type="text"><br>
+            <label for="completed">Complété:</label>
+            <input id="completed" name="completed" type="checkbox"><br>
+            <input type="submit" value="Ajouter">
+        </form>
+
+        <script>
+            document.getElementById('addTodoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                completed: formData.get('completed') === 'on'
+            };
+            fetch('/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(todo => {
+                location.reload();
+                document.getElementById('addTodoForm').reset();
+            });
+        });
+        </script>
+    </body>
+</html>
