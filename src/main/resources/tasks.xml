@@ -1,0 +1,26 @@
+<tasks>
+    <task>
+        <id>1</id>
+        <title>Complete project documentation</title>
+        <description>Write the documentation for the project including all modules and components.</description>
+        <completed>false</completed>
+    </task>
+    <task>
+        <id>2</id>
+        <title>Complete project documentation</title>
+        <description>Write the documentation for the project including all modules and components.</description>
+        <completed>false</completed>
+    </task>
+    <task>
+        <id>3</id>
+        <title>Complete project documentation</title>
+        <description>Write the documentation for the project including all modules and components.</description>
+        <completed>false</completed>
+    </task>
+    <task>
+        <id>4</id>
+        <title>Complete project documentation</title>
+        <description>Write the documentation for the project including all modules and components.</description>
+        <completed>false</completed>
+    </task>
+</tasks>
